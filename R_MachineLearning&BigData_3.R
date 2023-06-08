@@ -59,3 +59,76 @@ address <- c('서울', '부산', '광주')
 df <- data.frame(id, gender, address)
 df
 str(df) # 여러 type 공존가능 (행렬과의 차이점)
+
+# 옵저베이션 obs : 관측값 (데이터하나하나)
+# variables = features (각각의 열)
+
+# 7. 데이터불러오기
+id <- c(1, 2, 3)
+gender <- c('f', 'm', 'm')
+df <- data.frame(id = id, gender = gender)
+df
+View(df)
+str(df)
+
+# 7_1. read함수
+# header = TRUE : 첫번째 제목 행 있음을 알려줌
+read.table("/Users/sunyeonjeong/Desktop/coding/R/testdata/test_data.txt",
+           header=TRUE)
+
+# 파일에 header 행이 없는 경우 -> col.names 벡터로 삽입 가능
+read.table("/Users/sunyeonjeong/Desktop/coding/R/testdata/test_data_col.txt"
+           , col.names = c('id', 'gender', 'age', 'address'))
+
+# 데이터 건너뛰기 (행 2개) -> skip = 2
+read.table("/Users/sunyeonjeong/Desktop/coding/R/testdata/test_data.txt"
+           , skip = 2, col.names = c('id', 'gender', 'age', 'address'))
+
+# 출력할 행 갯수 지정 -> nrows = n
+read.table("/Users/sunyeonjeong/Desktop/coding/R/testdata/test_data.txt"
+           , header = TRUE, nrows = 5)
+
+# 특수문자로 데이터가 구분되어있는 경우 -> sep = "특수문자"
+read.table("/Users/sunyeonjeong/Desktop/coding/R/testdata/test_data2.txt"
+           , sep = ",", header = TRUE)
+
+# csv 파일 읽기 : 콤마로 구분된 데이터파일 -> sep = "," 안해도됨
+read.csv("/Users/sunyeonjeong/Desktop/coding/R/testdata/test_data.csv")
+
+# 엑셀 파일 읽기
+install.packages("readxl")
+library(readxl)
+
+read_excel("/Users/sunyeonjeong/Desktop/coding/R/testdata/test_data.xlsx")
+
+# xml 파일 읽기 : <>데이터</>로 이루어진 데이터
+install.packages("XML")
+library(XML)
+
+xmlToDataFrame("/Users/sunyeonjeong/Desktop/coding/R/testdata/test_data.xml")
+
+# JSON 파일 읽기 : key와 value로 이루어진 데이터 -> R에서 리스트로 읽힘
+install.packages("jsonlite")
+library(jsonlite)
+
+fromJSON("/Users/sunyeonjeong/Desktop/coding/R/testdata/test_data.json")
+
+# 8. 여러내장함수
+iris
+ncol(iris) # 열개수
+nrow(iris) # 행개수
+dim(iris) # 열 / 행 개수
+ls(iris) # 열 name 출력
+head(iris) # 상위 6개 데이터 출력
+head(iris, n = 20) # 상위 20개
+tail(iris) # 하위 6개 데이터 출력
+
+mean(iris$Sepal.Length) # 평균
+median(iris$Sepal.Length) # 중간값
+range(iris$Sepal.Length) # 범위
+
+quantile(iris$Sepal.Length) # 4분값
+quantile(iris$Sepal.Length, probs = 0.8)
+
+var(iris$Sepal.Length) # 분산
+sd(iris$Sepal.Length) # 표준편차
