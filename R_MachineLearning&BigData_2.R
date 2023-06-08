@@ -43,3 +43,39 @@ library(reshape2)
 
 # 3_3. 패키지삭제하기
 remove.packages("reshape2")
+
+# 4. 조건문
+# if(조건1) {
+#   조건1 TURE -> 실행
+# } else if(조건2) {
+#   조건1 FALSE, 조건2 TRUE -> 실행
+# } else {
+#   모든 조건 FALSE -> 실행
+# }
+b <- 3
+if(b %% 2 == 0) {
+    print("짝수")
+} else {
+    print("홀수")
+}
+
+score <- 90
+if(score >= 80) {
+    print("합격")
+} else if(score >= 60) {
+    print("재시험")
+} else {
+    print("불합격")
+}
+
+# 5. for 반복문
+for (i in 1 : 9) {
+    res <- 2 * i
+    print(res)
+}
+
+for (i in 2 : 9) {
+    for (j in 1 : 9) {
+        print(i * j)
+    }
+}
