@@ -76,3 +76,32 @@ ggplot(mtcars, aes(x = cyl)) +
 
 ggplot(mtcars, aes(x = factor(cyl))) + # factor -> 범주형
     geom_bar(aes(fill = factor(gear))) # gear 종류별 다른색 fill
+
+# 7. 상자그림
+airquality
+ggplot(airquality, aes(x = Day, y = Temp, group = Day)) +
+    geom_boxplot()
+
+# 8. 히스토그램(빈도)
+ggplot(airquality, aes(x = Temp)) +
+    geom_histogram()
+
+# 9. 그래프 중첩
+ggplot(airquality, aes(x = Day, y = Temp)) +
+    geom_line(color = 'pink') +
+    geom_point()
+
+# 10
+economics
+ggplot(economics, aes(x = date, y = psavert)) +
+    geom_line() +
+    geom_hline(yintercept = mean(economics$psavert)) # 평균 라인 추가
+
+# 11. 그래프에 텍스트 추가
+ggplot(airquality, aes(x = Day, y = Temp)) +
+    geom_point() +
+    geom_text(aes(label = Temp))
+
+ggplot(mtcars, aes(x = gear)) +
+    geom_bar() +
+    labs(x = '기여수', y = '기어별자동차수')
