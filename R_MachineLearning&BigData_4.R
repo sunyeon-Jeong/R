@@ -131,8 +131,34 @@ inner_join(y20_history, y21_history, by = "ID") # 교집합(공통) -> NA 없음
 full_join(y20_history, y21_history, by = "ID") # 합집합(전체연결)
 
 # 5. 데이터재구조화
+# reshape2 packages
+install.packages("reshape2")
+library(reshape2)
+
 # melt() : 열이 긴 데이터 -> 행이 긴 데이터
+# melt(데이터프레임, id.vars = "기준명_고정", measure.vars = "변환열")
+airquality
+tolower(names(airquality)) # name() -> 데이터 열 뽑아내기 -> tolower 소문자변경
+
+melt_test <- melt(airquality) # 6개열 -> variable & value 2개의 열로 바뀜
+tail(melt_test) # 하위 6개 데이터추출
+
+melt(airquality, id.vars = c("Month", "Wind"), measure.vars = "Ozone")
+melt(airquality, id.vars = c("Month", "Wind"), na.rm = TRUE) # 결측치 제외
+
 # cast() : 행이 긴 데이터 -> 열이 긴 데이터
+# acast() : 데이터 -> 벡터, 행렬, 배열 형태로 변환
+# dcast() : 데이터 -> 데이터프레임 형태로 변환
+aq_melt <- melt(airquality, id.vars = c("Month", "Day"), na.rm = TRUE)
+aq_melt
+
+aq_dcast <- dcast(aq_melt, Month+Day ~ variable)
+aq_dcast
+
+aq_melt
+acast(aq_melt, Month~variable) # 2차원
+acast(aq_melt, Day~Month~variable) # 3차원
+acast(aq_melt, Month~variable, mean) # 함수 포함
 
 # 6. 결측치 : 데이터가 없는 것 -> NA로 표현함
 # is.na() : 결측치 True로 반환
