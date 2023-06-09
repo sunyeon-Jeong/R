@@ -92,7 +92,7 @@ ggplot(airquality, aes(x = Day, y = Temp)) +
     geom_point()
 
 # 10
-economics
+economicsf
 ggplot(economics, aes(x = date, y = psavert)) +
     geom_line() +
     geom_hline(yintercept = mean(economics$psavert)) # 평균 라인 추가
