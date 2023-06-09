@@ -1,4 +1,5 @@
 # R_MachineLearning&BigData_4
+# [데이터가공]
 # 1. dplyr 패키지함수
 install.packages("dplyr")
 library(dplyr)
@@ -61,11 +62,6 @@ sample_frac(mtcars, 0.5) # 32건중 50% 랜덤추출
 mtcars_rank <- mutate(mtcars, mpg_rank = rank(mpg))
 arrange(mtcars_rank, desc(mpg_rank)) # desc : 내림차순정렬
 
-# bind_row : 데이터 상하연결
-# left_join : 데이터 좌우연결
-# inner_join : 동일한 변수로 좌우연결
-# full_join : 변수전체 좌우연결
-
 # 2. 파이프연산자
 # % > % : 수식을 연결해줌 (cmd + shift + m)
 mutate(mtcars, mpg_rank = rank(mpg)) %>% 
@@ -104,16 +100,46 @@ exdata1 %>%
     group_by(AREA) %>% # AREA기준으로 중복되는거 1개로 묶음
     summarize(total = sum(Y21_AMT)) # Y21_AMT값을 AREA별로 합침
 
+# [데이터정제]
 # 4. 데이터구조변경
+library(readxl)
+
+m_history <- read_excel("/Users/sunyeonjeong/Desktop/coding/R/testdata/Sample2_m_history.xlsx")
+f_history <- read_excel("/Users/sunyeonjeong/Desktop/coding/R/testdata/Sample3_f_history.xlsx")
+
+View(m_history)
+View(f_history)
+
+# bind_rows : 데이터 상하연결 (행단위로 테이블두개 합침)
+bind_data <- bind_rows(m_history, f_history)
+
+View(bind_data)
+
+# left_join : 데이터 좌우연결 (왼쪽을 기준으로 연결)
+y21_history <- read_excel("/Users/sunyeonjeong/Desktop/coding/R/testdata/Sample4_y21_history.xlsx")
+y20_history <- read_excel("/Users/sunyeonjeong/Desktop/coding/R/testdata/Sample5_y20_history.xlsx")
+
+View(y21_history) # 3, 6 없음 (8개)
+View(y20_history) # 9 없음 (9개)
+
+left_join(y20_history, y21_history, by = "ID") # (left는 NA 없음) 누락값 -> NA
+
+# inner_join : 동일한 변수로 좌우연결
+inner_join(y20_history, y21_history, by = "ID") # 교집합(공통) -> NA 없음
+
+# full_join : 변수전체 좌우연결
+full_join(y20_history, y21_history, by = "ID") # 합집합(전체연결)
+
+# 5. 데이터재구조화
 # melt() : 열이 긴 데이터 -> 행이 긴 데이터
 # cast() : 행이 긴 데이터 -> 열이 긴 데이터
 
-# 5. 결측치 : 데이터가 없는 것 -> NA로 표현함
+# 6. 결측치 : 데이터가 없는 것 -> NA로 표현함
 # is.na() : 결측치 True로 반환
 # table(is.na()) : 결측치 빈도 확인
 # na.rm = T 옵션 : 결측치 제외 연산
 # na.omit() : 결측치 있는 행 전체제거
 # 변수명[is.na(변수명)] <- 대체값 : 결측치대체
 
-# 6. 이상치(극단치) : 데이터에서 정상적 범주를 벗어난 값
+# 7. 이상치(극단치) : 데이터에서 정상적 범주를 벗어난 값
 # boxplot(변수명)$stats
