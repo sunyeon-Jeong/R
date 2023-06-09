@@ -41,3 +41,15 @@ x <- c(1, 2, 3, 4, 7, 8, 8, 5, 9, 6, 9)
 stem(x) # 구간별 데이터갯수 출력
 stem(x, scale = 2)
 stem(x, scale = 0.5)
+
+# 5. 산점도 : 데이터변수들 사이 관계파악
+iris
+plot(x = iris$Sepal.Length, y = iris$Petal.Width)
+
+# 5_1. 산점도행렬 : 모든 변수간 산점도를 그려냄
+pairs(iris)
+
+install.packages("psych")
+library(psych)
+
+pairs.panels(iris) # 회귀선, 상관계수(-1 ~ 1)_+-1에 가까울수록 상관관계가 크다
