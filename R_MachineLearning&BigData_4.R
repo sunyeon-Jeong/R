@@ -166,6 +166,37 @@ acast(aq_melt, Month~variable, mean) # 함수 포함
 # na.rm = T 옵션 : 결측치 제외 연산
 # na.omit() : 결측치 있는 행 전체제거
 # 변수명[is.na(변수명)] <- 대체값 : 결측치대체
+x <- c(1, 2, NA, 4)
+is.na(x)
+table(is.na(x)) # table() -> 빈도수출력
+
+sum(x) # NA 포함 자료형 연산 -> NA로 결과출력
+sum(x, na.rm = T)
+
+is.na(x) # FALSE : 0, TRUE : 1
+sum(is.na(x)) # 어떤 행에 결측치가 있으면 1, 없으면 0 반환
+
+# 2차원 배열 -> NA 컬럼별로 몇개있는지 출력
+colSums(is.na(airquality))
+
+na.omit(airquality) # NA 포함 행 전체 제거
+
+# 불린참조
+airquality[is.na(airquality)] # NA 해당 자료만 추출
+
+airquality[is.na(airquality)] <- 0
 
 # 7. 이상치(극단치) : 데이터에서 정상적 범주를 벗어난 값
 # boxplot(변수명)$stats
+boxplot(mtcars$wt)
+
+boxplot(mtcars$wt)$stats # 수치로 확인가능
+#     [,1]
+#[1,] 1.5130 -> 최저이상치 바운더리6
+#[2,] 2.5425 -> 1사분위 25%
+#[3,] 3.3250 -> 중위수 50%
+#[4,] 3.6500 -> 3사분위 75%
+#[5,] 5.2500 -> 최고이상치 바운더리
+
+mtcars$wt <- ifelse(mtcars$wt > 5.25, NA, mtcars$wt)
+mtcars
