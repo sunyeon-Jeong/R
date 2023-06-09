@@ -31,3 +31,7 @@ barplot(dist_sex, ylim = c(0, 15), col = c('pink', 'skyblue'), names = c('f', 'm
 hist(exdata1$AGE) # AGE -> 일정구간으로 나뉘어 막대로 표시됨 (분포알아보기 좋음)
 
 hist(exdata1$AGE, xlim = c(0, 60))
+
+# 3. 파이차트
+x <- table(mtcars$gear) # table() : 각 데이터가 몇개씩 있는지 테이블로 출력
+pie(x)
