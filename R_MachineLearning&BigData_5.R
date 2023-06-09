@@ -26,3 +26,8 @@ barplot(dist_sex, ylim = c(0, 15), names = c('f', 'm'), xlab = "sex", ylab = "FR
 
 # 막대 색 변경
 barplot(dist_sex, ylim = c(0, 15), col = c('pink', 'skyblue'), names = c('f', 'm'), xlab = "sex", ylab = "FREQ")
+
+# 2. 히스토그램
+hist(exdata1$AGE) # AGE -> 일정구간으로 나뉘어 막대로 표시됨 (분포알아보기 좋음)
+
+hist(exdata1$AGE, xlim = c(0, 60))
