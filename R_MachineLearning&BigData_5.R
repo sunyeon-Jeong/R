@@ -35,3 +35,9 @@ hist(exdata1$AGE, xlim = c(0, 60))
 # 3. 파이차트
 x <- table(mtcars$gear) # table() : 각 데이터가 몇개씩 있는지 테이블로 출력
 pie(x)
+
+# 4. 줄기잎차트 : 히스토그램보다 상세히 분포파악 가능
+x <- c(1, 2, 3, 4, 7, 8, 8, 5, 9, 6, 9)
+stem(x) # 구간별 데이터갯수 출력
+stem(x, scale = 2)
+stem(x, scale = 0.5)
