@@ -53,3 +53,26 @@ install.packages("psych")
 library(psych)
 
 pairs.panels(iris) # 회귀선, 상관계수(-1 ~ 1)_+-1에 가까울수록 상관관계가 크다
+
+# 6. ggplot2
+install.packages("ggplot2")
+library(ggplot2)
+
+airquality
+str(airquality)
+
+ggplot(airquality, aes(x = Day, y = Temp)) + # x, y축 제목 + 배경그리기
+    geom_point(size = 3, color = 'pink') # 산점도
+
+ggplot(airquality, aes(x = Day, y = Temp)) +
+    geom_line() # 선그래프
+
+ggplot(airquality, aes(x = Day, y = Temp)) +
+    geom_count()
+
+mtcars
+ggplot(mtcars, aes(x = cyl)) +
+    geom_bar(width = 0.5)
+
+ggplot(mtcars, aes(x = factor(cyl))) + # factor -> 범주형
+    geom_bar(aes(fill = factor(gear))) # gear 종류별 다른색 fill
