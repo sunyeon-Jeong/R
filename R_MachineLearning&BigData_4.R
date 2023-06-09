@@ -71,16 +71,49 @@ arrange(mtcars_rank, desc(mpg_rank)) # desc : 내림차순정렬
 mutate(mtcars, mpg_rank = rank(mpg)) %>% 
     arrange(mpg_rank)
 
-# 3. 데이터구조변경
+# 3. 실습
+library(readxl)
+exdata1 <- read_excel("/Users/sunyeonjeong/Desktop/coding/R/testdata/Sample1.xlsx")
+
+exdata1 %>% 
+    select(ID) # 열추출
+
+exdata1 %>% 
+    select(ID, AREA) # 열추출
+
+exdata1 %>% 
+    select(-AREA) # 해당 열제외 추출
+exdata1 %>% 
+    select(-ID, -AREA)
+
+exdata1 %>% 
+    filter(AREA == "서울" & Y21_CNT >= 10) # 조건에 부합하는 행 추출
+
+exdata1 %>% 
+    arrange(AGE) # 데이터정렬
+exdata1 %>% 
+    arrange(desc(AGE)) # 내림차순 데이터정렬
+
+exdata1 %>% 
+    arrange(AGE, desc(Y21_AMT))
+
+exdata1 %>% 
+    summarize(total = sum(Y21_AMT)) # 데이터요약
+
+exdata1 %>% 
+    group_by(AREA) %>% # AREA기준으로 중복되는거 1개로 묶음
+    summarize(total = sum(Y21_AMT)) # Y21_AMT값을 AREA별로 합침
+
+# 4. 데이터구조변경
 # melt() : 열이 긴 데이터 -> 행이 긴 데이터
 # cast() : 행이 긴 데이터 -> 열이 긴 데이터
 
-# 4. 결측치 : 데이터가 없는 것 -> NA로 표현함
+# 5. 결측치 : 데이터가 없는 것 -> NA로 표현함
 # is.na() : 결측치 True로 반환
 # table(is.na()) : 결측치 빈도 확인
 # na.rm = T 옵션 : 결측치 제외 연산
 # na.omit() : 결측치 있는 행 전체제거
 # 변수명[is.na(변수명)] <- 대체값 : 결측치대체
 
-# 5. 이상치(극단치) : 데이터에서 정상적 범주를 벗어난 값
+# 6. 이상치(극단치) : 데이터에서 정상적 범주를 벗어난 값
 # boxplot(변수명)$stats
